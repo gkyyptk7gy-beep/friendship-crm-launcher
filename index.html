@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1F3A5F">
+<link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{--bg:#DCEBFA;--navy:#1F3A5F;--ink:#15233A;--mute:#4A5E78}
 *{box-sizing:border-box}
@@ -36,7 +37,8 @@ a:focus{outline:2px solid var(--navy);outline-offset:3px}
     // so Safari stays on this page long enough to Add to Home Screen.
     var standalone = window.navigator.standalone === true ||
       (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
-    if (standalone) {
+    var setup = /[?&]setup/.test(location.search);
+    if (standalone && !setup) {
       document.getElementById('msg').textContent = 'Opening your CRM…';
       location.replace("https://script.google.com/macros/s/AKfycbxVtJj0fTJfwkGf507W-1q7goiJv0e15ISUyGxaKkQGuefviDB9XJ1qGqJozzfCa70v6A/exec");
     }
