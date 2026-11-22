@@ -8,6 +8,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Friendship CRM">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1F3A5F">
 <style>
 :root{--bg:#DCEBFA;--navy:#1F3A5F;--ink:#15233A;--mute:#4A5E78}
@@ -26,11 +28,18 @@ a:focus{outline:2px solid var(--navy);outline-offset:3px}
   <div class="splash">
     <img class="logo" src="logo-header.png" width="96" height="96" alt="">
     <h1>Friendship CRM</h1>
-    <p>Opening your CRM…</p>
+    <p id="msg">To add it to your iPhone, tap Share, then Add to Home Screen. Or open the CRM now.</p>
     <a href="https://script.google.com/macros/s/AKfycbxVtJj0fTJfwkGf507W-1q7goiJv0e15ISUyGxaKkQGuefviDB9XJ1qGqJozzfCa70v6A/exec">Open Friendship CRM</a>
   </div>
   <script>
-    location.replace("https://script.google.com/macros/s/AKfycbxVtJj0fTJfwkGf507W-1q7goiJv0e15ISUyGxaKkQGuefviDB9XJ1qGqJozzfCa70v6A/exec");
+    // Only jump to the CRM when launched from the home screen icon,
+    // so Safari stays on this page long enough to Add to Home Screen.
+    var standalone = window.navigator.standalone === true ||
+      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+    if (standalone) {
+      document.getElementById('msg').textContent = 'Opening your CRM…';
+      location.replace("https://script.google.com/macros/s/AKfycbxVtJj0fTJfwkGf507W-1q7goiJv0e15ISUyGxaKkQGuefviDB9XJ1qGqJozzfCa70v6A/exec");
+    }
   </script>
 </body>
 </html>
